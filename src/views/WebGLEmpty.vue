@@ -1,6 +1,6 @@
 <template>
-  <PageContainer class="homePageContainer">
-    <PageHeading>Home</PageHeading>
+  <PageContainer class="webGLEmptyPageContainer">
+    <PageHeading>WebGL Empty</PageHeading>
     <WebGLCanvas />
   </PageContainer>
 </template>
@@ -9,4 +9,6 @@
 import PageContainer from '@/components/pages/PageContainer.vue'
 import PageHeading from '@/components/pages/PageHeading.vue'
 import WebGLCanvas from '@/components/webgl/WebGLCanvas.vue'
+
+
 </script>
