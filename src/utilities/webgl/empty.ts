@@ -1,5 +1,4 @@
-export const launchEmptyWebGL = () => {
-  const canvas = document.querySelector('#glcanvas') as HTMLCanvasElement
+export const launchEmptyWebGL = (canvas: HTMLCanvasElement) => {
   // Initialize the GL context
   const gl = canvas?.getContext('webgl')
 

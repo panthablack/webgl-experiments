@@ -6,5 +6,6 @@ import NavBarLink from '@/components/nav/NavBarLink.vue'
   <nav class="navBar p-4 flex flex-no-wrap gap-y-4 gap-x-6 bg-gray-700">
     <NavBarLink to="/">Home</NavBarLink>
     <NavBarLink to="/about">About</NavBarLink>
+    <NavBarLink to="/webgl">WebGL</NavBarLink>
   </nav>
 </template>
