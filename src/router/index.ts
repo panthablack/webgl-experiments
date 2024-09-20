@@ -17,7 +17,17 @@ const router = createRouter({
     {
       path: '/webgl',
       name: 'webgl',
+      component: () => import('@/views/WebGL.vue'),
+    },
+    {
+      path: '/webgl/empty',
+      name: 'webgl-empty',
       component: () => import('@/views/WebGLEmpty.vue'),
+    },
+    {
+      path: '/webgl/blank-plane',
+      name: 'webgl-blank-plane',
+      component: () => import('@/views/WebGLRenderBlankPlane.vue'),
     },
   ],
 })

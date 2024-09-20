@@ -9,6 +9,7 @@
 <script setup lang="ts">
 import { computed, onMounted, type ComputedRef } from 'vue'
 import { DEFAULT_CANVAS_ID } from '@/config/constants/webgl'
+import { getCanvasFromId } from '@/utilities/canvas'
 
 const props = defineProps<{
   canvasID?: string
@@ -20,7 +21,7 @@ const emit = defineEmits(['canvas-mounted'])
 const getCanvasID: ComputedRef<string> = computed(() => props.canvasID || DEFAULT_CANVAS_ID)
 
 onMounted(() => {
-  const canvas = document.getElementById(getCanvasID.value)
+  const canvas = getCanvasFromId(getCanvasID.value)
   if (props.onMountedCallback) props.onMountedCallback(canvas)
   emit('canvas-mounted', canvas)
 })
