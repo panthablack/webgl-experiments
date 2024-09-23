@@ -1,4 +1,3 @@
-// creates a shader of the given type, uploads the source and compiles it.
 export const loadShader = (
   context: WebGLRenderingContext,
   type: GLenum,
