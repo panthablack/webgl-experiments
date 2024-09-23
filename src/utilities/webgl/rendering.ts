@@ -1,7 +1,7 @@
 import type { ProgramInfo } from '@/types/webgl'
 import type { WebGLBufferCollection } from '@/types/buffers'
 import { fragmentShaderDefault, vertexShaderDefault } from '@/utilities/shaders'
-import { createBuffers } from '@/utilities/webgl'
+import { createBuffers } from '@/utilities/webgl/buffers'
 import { loadShaderProgram } from '@/utilities/webgl/shaders'
 import { getAspectRatio } from '../canvas'
 import { createMat4, createPerspectiveMatrix, translateMatrix, type Mat4 } from '../glMatrix/mat4'
@@ -9,7 +9,6 @@ import { resetRenderingContext } from './context'
 
 export const drawRectangle = (context: WebGLRenderingContext): WebGLRenderingContext => {
   const shaderProgram = loadShaderProgram(context, vertexShaderDefault, fragmentShaderDefault)
-  if (!shaderProgram) throw 'shader program not loaded'
 
   const programInfo: ProgramInfo = getProgramInfo(context, shaderProgram)
   const buffers = createBuffers(context, {
@@ -23,11 +22,16 @@ export const drawRectangle = (context: WebGLRenderingContext): WebGLRenderingCon
 
 export const drawColouredRectangle = (context: WebGLRenderingContext): WebGLRenderingContext => {
   const shaderProgram = loadShaderProgram(context, vertexShaderDefault, fragmentShaderDefault)
-  if (!shaderProgram) throw 'shader program not loaded'
 
   const programInfo: ProgramInfo = getProgramInfo(context, shaderProgram)
   const buffers = createBuffers(context, {
     positions: [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0],
+    colors: [
+      ...[1.0, 1.0, 1.0, 1.0], // white
+      ...[1.0, 0.0, 0.0, 1.0], // red
+      ...[0.0, 1.0, 0.0, 1.0], // green
+      ...[0.0, 0.0, 1.0, 1.0], // blue
+    ],
   })
 
   drawScene(context, programInfo, buffers)

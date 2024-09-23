@@ -29,7 +29,7 @@ export const loadShaderProgram = (
   context: WebGLRenderingContext,
   vertSource: string,
   fragSource: string
-): WebGLProgram | null => {
+): WebGLProgram => {
   // load the shaders
   const vertexShader = loadShader(context, context.VERTEX_SHADER, vertSource)
   const fragmentShader = loadShader(context, context.FRAGMENT_SHADER, fragSource)
@@ -43,12 +43,11 @@ export const loadShaderProgram = (
   context.linkProgram(shaderProgram)
 
   // If creating the shader program failed, alert
-  if (!context.getProgramParameter(shaderProgram, context.LINK_STATUS)) {
+  if (!context.getProgramParameter(shaderProgram, context.LINK_STATUS))
     console.error(
       `Unable to initialize the shader program: ${context.getProgramInfoLog(shaderProgram)}`
     )
-    return null
-  }
 
-  return shaderProgram
+  if (!shaderProgram) throw 'shader program not loaded'
+  else return shaderProgram
 }
