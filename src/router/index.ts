@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'webgl-blank-plane',
       component: () => import('@/views/WebGLRenderBlankPlane.vue'),
     },
+    {
+      path: '/webgl/coloured-plane',
+      name: 'webgl-coloured-plane',
+      component: () => import('@/views/WebGLRenderColouredPlane.vue'),
+    },
   ],
 })
 

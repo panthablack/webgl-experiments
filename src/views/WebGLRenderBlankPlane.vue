@@ -1,7 +1,10 @@
 <template>
   <PageContainer class="webGLBlankPlanePageContainer">
     <PageHeading>WebGL Blank Plane</PageHeading>
-    <WebGLCanvas @canvas-mounted="launchBlankPlaneWebGL($event)" />
+    <WebGLCanvas
+      @canvas-mounted="onCanvasMounted"
+      :canvas-i-d="canvasID"
+    />
   </PageContainer>
 </template>
 
@@ -9,5 +12,12 @@
 import PageContainer from '@/components/pages/PageContainer.vue'
 import PageHeading from '@/components/pages/PageHeading.vue'
 import WebGLCanvas from '@/components/webgl/WebGLCanvas.vue'
-import { launchBlankPlaneWebGL } from '@/utilities/webgl/renderBlankPlane'
+import { useWebGL, type UseWebGLInterface } from '@/composables/useWebGL'
+import type { CanvasID } from '@/types/webgl'
+
+const canvasID: CanvasID = 'webGLCanvas'
+const onCanvasMounted = async () => {
+  const webGLInterface: UseWebGLInterface = useWebGL(canvasID)
+  webGLInterface.loadBlankPlane()
+}
 </script>

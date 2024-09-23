@@ -1,6 +1,6 @@
 <template>
-  <PageContainer class="webGLPageContainer">
-    <PageHeading>WebGL Empty</PageHeading>
+  <PageContainer class="webGLColouredPlanePageContainer">
+    <PageHeading>WebGL Coloured Plane</PageHeading>
     <WebGLCanvas
       @canvas-mounted="onCanvasMounted"
       :canvas-i-d="canvasID"
@@ -14,11 +14,10 @@ import PageHeading from '@/components/pages/PageHeading.vue'
 import WebGLCanvas from '@/components/webgl/WebGLCanvas.vue'
 import { useWebGL, type UseWebGLInterface } from '@/composables/useWebGL'
 import type { CanvasID } from '@/types/webgl'
-import { ref, type Ref } from 'vue'
 
 const canvasID: CanvasID = 'webGLCanvas'
-const webGLInterface: Ref<UseWebGLInterface | null> = ref(null)
 const onCanvasMounted = async () => {
-  webGLInterface.value = useWebGL(canvasID)
+  const webGLInterface: UseWebGLInterface = useWebGL(canvasID)
+  webGLInterface.loadColouredPlane()
 }
 </script>
