@@ -1,6 +1,6 @@
 <template>
-  <PageContainer class="webGLCustomShaderPageContainer">
-    <PageHeading>WebGL Custom Shader</PageHeading>
+  <PageContainer class="webGLColouredPlanePageContainer">
+    <PageHeading>WebGL Coloured Plane</PageHeading>
     <WebGLCanvas
       @canvas-mounted="onCanvasMounted"
       :canvas-i-d="canvasID"

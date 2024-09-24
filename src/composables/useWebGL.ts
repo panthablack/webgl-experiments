@@ -1,7 +1,11 @@
 import type { CanvasID } from '@/types/webgl'
 import { getCanvasFromId } from '@/utilities/canvas'
 import { getContextOrAlert, resetRenderingContext } from '@/utilities/webgl/context'
-import { drawColouredRectangle, drawRectangle } from '@/utilities/webgl/rendering'
+import {
+  drawColouredRectangle,
+  drawCustomRectangle,
+  drawRectangle,
+} from '@/utilities/webgl/rendering'
 import { ref, toValue, type Ref } from 'vue'
 
 export interface UseWebGLInterface {
@@ -9,6 +13,7 @@ export interface UseWebGLInterface {
   context: Ref<WebGLRenderingContext>
   loadBlankPlane: Function
   loadColouredPlane: Function
+  loadCustomShaderPlane: Function
 }
 
 export const useWebGL = (canvasID: CanvasID): UseWebGLInterface => {
@@ -31,6 +36,10 @@ export const useWebGL = (canvasID: CanvasID): UseWebGLInterface => {
     drawColouredRectangle(context.value)
   }
 
+  const loadCustomShaderPlane = () => {
+    drawCustomRectangle(context.value)
+  }
+
   // return interface
-  return { canvas, context, loadBlankPlane, loadColouredPlane }
+  return { canvas, context, loadBlankPlane, loadColouredPlane, loadCustomShaderPlane }
 }

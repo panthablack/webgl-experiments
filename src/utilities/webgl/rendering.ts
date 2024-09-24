@@ -2,8 +2,10 @@ import type { ProgramInfo } from '@/types/webgl'
 import type { WebGLBufferCollection } from '@/types/buffers'
 import {
   fragmentShaderColoured,
+  fragmentShaderCustom,
   fragmentShaderDefault,
   vertexShaderColoured,
+  vertexShaderCustom,
   vertexShaderDefault,
 } from '@/utilities/shaders'
 import { createBuffers } from '@/utilities/webgl/buffers'
@@ -40,6 +42,16 @@ export const drawColouredRectangle = (context: WebGLRenderingContext): WebGLRend
       ...[0.0, 1.0, 0.0, 1.0], // green
       ...[0.0, 0.0, 1.0, 1.0], // blue
     ],
+  })
+  drawScene(context, programInfo, buffers)
+  return context
+}
+
+export const drawCustomRectangle = (context: WebGLRenderingContext): WebGLRenderingContext => {
+  const shaderProgram = loadShaderProgram(context, vertexShaderCustom, fragmentShaderCustom)
+  const programInfo: ProgramInfo = getProgramInfo(context, shaderProgram)
+  const buffers = createBuffers(context, {
+    positions: [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0],
   })
   drawScene(context, programInfo, buffers)
   return context

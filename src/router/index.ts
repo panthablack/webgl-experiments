@@ -34,6 +34,11 @@ const router = createRouter({
       name: 'webgl-coloured-plane',
       component: () => import('@/views/WebGLRenderColouredPlane.vue'),
     },
+    {
+      path: '/webgl/custom-shaders',
+      name: 'webgl-custom-shaders',
+      component: () => import('@/views/WebGLCustomShaders.vue'),
+    },
   ],
 })
 

@@ -10,5 +10,6 @@ import NavBarLink from '@/components/nav/NavBarLink.vue'
     <NavBarLink to="/webgl/empty">WebGL Empty</NavBarLink>
     <NavBarLink to="/webgl/blank-plane">Blank Plane</NavBarLink>
     <NavBarLink to="/webgl/coloured-plane">Coloured Plane</NavBarLink>
+    <NavBarLink to="/webgl/custom-shaders">Custom Shaders</NavBarLink>
   </nav>
 </template>
