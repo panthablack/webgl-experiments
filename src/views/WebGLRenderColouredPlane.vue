@@ -18,6 +18,6 @@ import type { CanvasID } from '@/types/webgl'
 const canvasID: CanvasID = 'webGLCanvas'
 const onCanvasMounted = async () => {
   const webGLInterface: UseWebGLInterface = useWebGL(canvasID)
-  webGLInterface.loadCustomShaderPlane()
+  webGLInterface.loadColouredPlane()
 }
 </script>

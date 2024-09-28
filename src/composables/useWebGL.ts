@@ -1,3 +1,5 @@
+import { DEFAULT_ANIMATION_OPTIONS } from '@/config/constants/webgl'
+import type { AnimationOptions } from '@/types/rendering'
 import type { CanvasID } from '@/types/webgl'
 import { getCanvasFromId } from '@/utilities/canvas'
 import { getContextOrAlert, resetRenderingContext } from '@/utilities/webgl/context'
@@ -11,6 +13,7 @@ import { ref, toValue, type Ref } from 'vue'
 export interface UseWebGLInterface {
   canvas: Ref<HTMLCanvasElement>
   context: Ref<WebGLRenderingContext>
+  loadAnimatedPlane: Function
   loadBlankPlane: Function
   loadColouredPlane: Function
   loadCustomShaderPlane: Function
@@ -28,6 +31,12 @@ export const useWebGL = (canvasID: CanvasID): UseWebGLInterface => {
   resetRenderingContext(context.value)
 
   // methods
+  const loadAnimatedPlane = (animationOptions?: AnimationOptions) =>
+    drawCustomRectangle(context.value, {
+      ...DEFAULT_ANIMATION_OPTIONS,
+      ...(animationOptions || {}),
+    })
+
   const loadBlankPlane = () => {
     drawRectangle(context.value)
   }
@@ -41,5 +50,12 @@ export const useWebGL = (canvasID: CanvasID): UseWebGLInterface => {
   }
 
   // return interface
-  return { canvas, context, loadBlankPlane, loadColouredPlane, loadCustomShaderPlane }
+  return {
+    canvas,
+    context,
+    loadAnimatedPlane,
+    loadBlankPlane,
+    loadColouredPlane,
+    loadCustomShaderPlane,
+  }
 }

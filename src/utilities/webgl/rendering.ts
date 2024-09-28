@@ -14,24 +14,32 @@ import { getAspectRatio } from '@/utilities/canvas'
 import {
   createMat4,
   createPerspectiveMatrix,
+  rotateMatrix,
   translateMatrix,
   type Mat4,
 } from '@/utilities/glMatrix/mat4'
 import { resetRenderingContext } from '@/utilities/webgl/context'
 import { getProgramInfo } from '@/utilities/webgl/programs'
 import { setColorAttribute, setPositionAttribute } from '@/utilities/webgl/attributes'
+import type { AnimationOptions } from '@/types/rendering'
 
-export const drawRectangle = (context: WebGLRenderingContext): WebGLRenderingContext => {
+export const drawRectangle = (
+  context: WebGLRenderingContext,
+  animationOptions?: AnimationOptions
+): WebGLRenderingContext => {
   const shaderProgram = loadShaderProgram(context, vertexShaderDefault, fragmentShaderDefault)
   const programInfo: ProgramInfo = getProgramInfo(context, shaderProgram)
   const buffers = createBuffers(context, {
     positions: [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0],
   })
-  drawScene(context, programInfo, buffers)
+  drawScene(context, programInfo, buffers, animationOptions)
   return context
 }
 
-export const drawColouredRectangle = (context: WebGLRenderingContext): WebGLRenderingContext => {
+export const drawColouredRectangle = (
+  context: WebGLRenderingContext,
+  animationOptions?: AnimationOptions
+): WebGLRenderingContext => {
   const shaderProgram = loadShaderProgram(context, vertexShaderColoured, fragmentShaderColoured)
   const programInfo: ProgramInfo = getProgramInfo(context, shaderProgram)
   const buffers = createBuffers(context, {
@@ -43,28 +51,34 @@ export const drawColouredRectangle = (context: WebGLRenderingContext): WebGLRend
       ...[0.0, 0.0, 1.0, 1.0], // blue
     ],
   })
-  drawScene(context, programInfo, buffers)
+  drawScene(context, programInfo, buffers, animationOptions)
   return context
 }
 
-export const drawCustomRectangle = (context: WebGLRenderingContext): WebGLRenderingContext => {
+export const drawCustomRectangle = (
+  context: WebGLRenderingContext,
+  animationOptions?: AnimationOptions
+): WebGLRenderingContext => {
   const shaderProgram = loadShaderProgram(context, vertexShaderCustom, fragmentShaderCustom)
   const programInfo: ProgramInfo = getProgramInfo(context, shaderProgram)
   const buffers = createBuffers(context, {
     positions: [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0],
   })
-  drawScene(context, programInfo, buffers)
+  drawScene(context, programInfo, buffers, animationOptions)
   return context
 }
 
 const drawScene = (
   context: WebGLRenderingContext,
   programInfo: ProgramInfo,
-  buffers: WebGLBufferCollection
+  buffers: WebGLBufferCollection,
+  animationOptions?: AnimationOptions
 ) => {
   resetRenderingContext(context)
   const projectionMatrix = getProjectionMatrix(context)
   const modelViewMatrix = getModelViewMatrix()
+  if (animationOptions !== undefined)
+    rotateMatrix(modelViewMatrix, modelViewMatrix, animationOptions.rotation, animationOptions.axis)
   if (buffers.color) setColorAttribute(context, programInfo, buffers)
   setPositionAttribute(context, programInfo, buffers)
   context.useProgram(programInfo.program)

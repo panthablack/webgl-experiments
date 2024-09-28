@@ -1,3 +1,8 @@
+export type AnimationOptions = {
+  axis: [number, number, number]
+  rotation: number
+}
+
 export type ProgramInfo = {
   program: WebGLProgram
   attribLocations: {
